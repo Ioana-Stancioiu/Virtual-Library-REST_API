@@ -6,7 +6,7 @@ Tema 3 PC
 * Am folosit bibliotecile din laboratorul 10 pentru conectare si deconectarea de la server,
 si pentru cererile de post si get, la care am adaugat o functie ce construieste o cerere
 de delete.
-* Pentru parsarea si creeare de stringuri json am folosit biblioteca parson, pentru ca era
+* Pentru parsarea si crearea de stringuri json am folosit biblioteca parson, pentru ca era
 recomandata in enuntul temei si mi s-a parut destul de usor de folosit
 
 Comenzi:
