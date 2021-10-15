@@ -1,0 +1,66 @@
+STANCIOIU LAURA IOANA
+322CD
+
+Tema 3 PC
+
+* Am folosit bibliotecile din laboratorul 10 pentru conectare si deconectarea de la server,
+si pentru cererile de post si get, la care am adaugat o functie ce construieste o cerere
+de delete.
+* Pentru parsarea si creeare de stringuri json am folosit biblioteca parson, pentru ca era
+recomandata in enuntul temei si mi s-a parut destul de usor de folosit
+
+Comenzi:
+* register:
+    - se citesc de la stdin usernameul si parola
+    - se creeaza un json cu cele doua campuri
+    - se trimite serverului o cerere de tip post cu json-ul creeat, ca payload
+    - se extrage codul HTTP
+    - daca se trimite un username deja existent se primeste un cod
+    de Bad Request si se afiseaza eroarea primita de la server
+    - daca codul este de Created inseamna ca utilizatorul a fost creeat cu succes
+
+* login:
+    - se citesc usernameul si parola si se cosntruieste un json
+    - se trimite o cerere de tip post
+    - daca usernameul nu exista sau parola este gresita se primeste un
+    cod Bad Request
+    - daca serverul accepta cererea se extrage din mesaj cookie-ul connect.sid,
+    pentru a putea dovedi in cererile urmatoare ca utilizatorul este logat
+
+* enter_library:
+    - se trimite o cerere de tip get
+    - intoarce un mesaj de eroare daca lipseste session cookie din cerere
+    (nu demonstrez ca userul este autentificat) (cod Unauthorized)
+    - daca cererea este receptionata cu succes se retine tokenul jwt
+    pentru a demonsta pe viitor ca userul are acces la biblioteca
+
+* get_books
+    - se trimite o cerere de tip get
+    - daca lipseste header-ul de Authorization se primeste eroare(cod Forbidden)
+    - altfel se afiseaza informatiile primite despre cartile din biblioteca
+
+* get_book
+    - se citeste id-ul cartii
+    - daca cartea cu id-ul dat nu exista se primeste un mesaj de eroare
+    (cod Not Found)
+    - la fel ca la celelalte cereri trebuie sa includem jwt token si session
+    cookie
+    - se afiseaza informatiile despre carte
+
+* add_book
+    - se citesc de la stdin informatiile cartii si se creeaza un json cu acestea
+    - se trimite o cerere de tip post
+    - daca unul dintre campurile cartii lipseste sau este scris gresit se
+    primeste o eroare de Bad Request
+    - altfel, cartea a fost adaugata cu succes
+
+* delete_book
+    - se citeste id-ul cartii
+    - se trimite o cerere de tip delete
+    - daca cartea nu exista se primeste un mesaj de eroare de tip Not Found
+    - altfel, cartea a fost stearsa
+
+* logout
+    - se trimite o cerere de tip get
+    - intoarce mesaj de eroare daca lipseste session cookie (Bad Request)
+    - altfel, user-ul a fost delogat cu succes
